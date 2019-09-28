@@ -45,6 +45,12 @@ THIRD_LIBRARIES = [
 
 INSTALLED_APPS += THIRD_LIBRARIES
 
+APPS = [
+    'catalog',
+]
+
+INSTALLED_APPS += APPS
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
