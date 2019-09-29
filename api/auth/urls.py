@@ -12,7 +12,7 @@ from api.auth.views import UserViewSet
 
 
 router = DefaultRouter()
-router.register(r'user', UserViewSet, base_name='user')
+router.register(r'sign-up', UserViewSet, base_name='user')
 
 
 urlpatterns = [

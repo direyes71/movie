@@ -1,9 +1,10 @@
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
-
 from rest_framework.mixins import CreateModelMixin
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -24,6 +25,7 @@ class UserViewSet(GenericViewSet, CreateModelMixin):
     """ Manage users
     """
 
+    permission_classes = (AllowAny,)
     serializer_class = NewUserSerializer
     queryset = User.objects.all()
 
