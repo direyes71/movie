@@ -4,3 +4,5 @@
 .idea
 settings_local.py
 .vscode
+htmlcov/
+.coverage

@@ -100,6 +100,7 @@ class ServicesTestCase(TestCase):
         self.assertEqual(data['stars'], _movie.stars)
         self.assertEqual(data['genre'], _movie.genre.name)
         self.assertEqual(data['director'], _movie.director.name)
+        self.assertEqual(data['name'], _movie.__str__())
 
     def test_retrieve_movie_list(self):
         _movie = self._create_movie()
@@ -180,7 +181,7 @@ class ServicesTestCase(TestCase):
 
     def test_retrieve_movie_list_recommended(self):
         _movie = self._create_movie()
-        url = '/catalog/movie/??best_movie=1'
+        url = '/catalog/movie/?best_movie=1'
         response = self.client.get(
             url,
         )

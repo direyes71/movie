@@ -61,4 +61,4 @@ class Movie(Auditor):
     )
 
     def __str__(self):
-        return self.movie_title
+        return self.name

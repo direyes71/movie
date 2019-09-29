@@ -1,0 +1,8 @@
+[run]
+    source = .
+    omit =
+        movie/wsgi.py
+        manage.py
+        api/auth/apps.py
+        api/catalog/apps.py
+        catalog/apps.py
