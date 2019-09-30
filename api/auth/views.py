@@ -15,14 +15,21 @@ from api.auth.serializers import NewUserSerializer
 
 
 class AuthTokenLogin(TokenObtainPairView):
-    """ Token Login process
+    """ Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+
+        Request: {
+            "username": "test2",
+            "password": "test"
+        }
+        Response: {JWT_AUTHENTICATION}
     """
 
     serializer_class = TokenObtainPairSerializer
 
 
 class UserViewSet(GenericViewSet, CreateModelMixin):
-    """ Manage users
+    """ Signs up users
     """
 
     permission_classes = (AllowAny,)
@@ -31,6 +38,9 @@ class UserViewSet(GenericViewSet, CreateModelMixin):
 
 
 class LogoutView(GenericAPIView):
+    """ Unvalidate Token for user
+    """
+
     serializer_class = TokenVerifySerializer
 
     def post(self, request, *args):

@@ -1,6 +1,5 @@
+from django.conf.urls import url
 from django.urls import include
-from django.urls import path
-
 
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -16,10 +15,10 @@ router.register(r'sign-up', UserViewSet, base_name='user')
 
 
 urlpatterns = [
-    path('login-token/', AuthTokenLogin.as_view(), name='token_obtain_pair'),
-    path('refresh-token/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('verify-token/', TokenVerifyView.as_view(), name='token_verify'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    url('login-token/', AuthTokenLogin.as_view(), name='token_obtain_pair'),
+    url('refresh-token/', TokenRefreshView.as_view(), name='token_refresh'),
+    url('verify-token/', TokenVerifyView.as_view(), name='token_verify'),
+    url('logout/', LogoutView.as_view(), name='logout'),
 
-    path('', include(router.urls)),
+    url('', include(router.urls)),
 ]

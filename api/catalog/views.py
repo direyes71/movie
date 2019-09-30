@@ -17,6 +17,28 @@ class MovieViewSet(
         DestroyModelMixin,
         GenericViewSet,
         ):
+    """
+    retrieve:
+        Return a movie instance.
+
+    list:
+        Return movie list.
+
+        query_string params:
+        - name
+        - director
+        - genre
+        - best_movie (value=1)
+
+    create:
+        Create a new movie.
+
+    delete:
+        Remove an existing movie.
+
+    update:
+        Update a movie.
+    """
 
     serializer_class = NewMovieSerializer
     queryset = Movie.objects.all()

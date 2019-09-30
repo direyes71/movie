@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
 THIRD_LIBRARIES = [
     'rest_framework',
+    'rest_framework_swagger',
 ]
 
 INSTALLED_APPS += THIRD_LIBRARIES
@@ -142,4 +143,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
