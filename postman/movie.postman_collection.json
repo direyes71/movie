@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "c97f81b5-064f-4222-b5cc-0f3541d2fdea",
+		"name": "movie",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "025f9457-9041-4240-bb3e-133ebda533a2",
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", data.access);\r",
+									"postman.setEnvironmentVariable(\"refresh_token\", data.refresh);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"test2\",\n\t\"password\": \"test\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}auth/login-token/",
+							"host": [
+								"{{host}}auth"
+							],
+							"path": [
+								"login-token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new_user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"test2\",\n\t\"password\": \"test\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}auth/sign-up/",
+							"host": [
+								"{{host}}auth"
+							],
+							"path": [
+								"sign-up",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"token\": \"{{refresh_token}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}auth/logout/",
+							"host": [
+								"{{host}}auth"
+							],
+							"path": [
+								"logout",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "catalog",
+			"item": [
+				{
+					"name": "new_movie",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"movie tittle\",\n\t\"duration\": 120,\n\t\"year\": 2019,\n\t\"stars\": 4,\n\t\"genre\": \"aminado\",\n\t\"director\": \"director\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}catalog/movie/",
+							"host": [
+								"{{host}}catalog"
+							],
+							"path": [
+								"movie",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_movie",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"movie tittle updated\",\n\t\"duration\": 120,\n\t\"year\": 2019,\n\t\"stars\": 4,\n\t\"genre\": \"animado updated\",\n\t\"director\": \"director updated\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}catalog/movie/5/",
+							"host": [
+								"{{host}}catalog"
+							],
+							"path": [
+								"movie",
+								"5",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retrieve_movie",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}catalog/movie/5/",
+							"host": [
+								"{{host}}catalog"
+							],
+							"path": [
+								"movie",
+								"5",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_movie",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}catalog/movie/3/",
+							"host": [
+								"{{host}}catalog"
+							],
+							"path": [
+								"movie",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retrieve_movie_list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}catalog/movie/?name=tittle&director=director&genre=animado",
+							"host": [
+								"{{host}}catalog"
+							],
+							"path": [
+								"movie",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "tittle"
+								},
+								{
+									"key": "director",
+									"value": "director"
+								},
+								{
+									"key": "genre",
+									"value": "animado"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retrieve_recomended_movie_list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}catalog/movie/?best_movie=1",
+							"host": [
+								"{{host}}catalog"
+							],
+							"path": [
+								"movie",
+								""
+							],
+							"query": [
+								{
+									"key": "best_movie",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
