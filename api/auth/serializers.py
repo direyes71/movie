@@ -1,19 +1,21 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
 
 
 class NewUserSerializer(serializers.ModelSerializer):
-    """ Serialzer for new users
+    """ Serializer for new users
     """
 
     password = serializers.CharField(write_only=True)
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = (
             'username',
             'password',
+            'age',
+            'sex',
         )
 
     def create(self, validated_data):

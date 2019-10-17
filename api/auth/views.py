@@ -1,5 +1,4 @@
 from django.contrib.auth import logout
-from django.contrib.auth.models import User
 
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
@@ -12,6 +11,7 @@ from rest_framework_simplejwt.serializers import TokenVerifySerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from api.auth.serializers import NewUserSerializer
+from userprofile.models import Profile
 
 
 class AuthTokenLogin(TokenObtainPairView):
@@ -34,7 +34,7 @@ class UserViewSet(GenericViewSet, CreateModelMixin):
 
     permission_classes = (AllowAny,)
     serializer_class = NewUserSerializer
-    queryset = User.objects.all()
+    queryset = Profile.objects.all()
 
 
 class LogoutView(GenericAPIView):

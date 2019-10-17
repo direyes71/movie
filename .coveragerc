@@ -6,3 +6,4 @@
         api/auth/apps.py
         api/catalog/apps.py
         catalog/apps.py
+        userprofile/apps.py

@@ -48,6 +48,7 @@ INSTALLED_APPS += THIRD_LIBRARIES
 
 APPS = [
     'catalog',
+    'userprofile',
 ]
 
 INSTALLED_APPS += APPS
@@ -145,3 +146,5 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
+
+AUTH_USER_MODEL = 'userprofile.Profile'

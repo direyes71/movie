@@ -1,7 +1,10 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
+
+
+User = get_user_model()
 
 
 class TestLoginCase(APITestCase):
@@ -18,7 +21,7 @@ class TestLoginCase(APITestCase):
     password = 'movie-test'
 
     def setUp(self):
-        self.user = User.objects.create_user(self.username, password=self.password)
+        self.user = User.objects.create_user(self.username, password=self.password, age=24, sex=1)
         self.client = APIClient()
 
     def test_login(self):
@@ -57,6 +60,8 @@ class TestLoginCase(APITestCase):
         data = {
             'username': 'new-user-test',
             'password': 'new-user-test',
+            'age': 24,
+            'sex': 1,
         }
         response = self.client.post(self.sign_up, data)
         self.assertEquals(response.status_code, 201)
