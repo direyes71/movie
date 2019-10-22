@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from catalog.choices import RATING_CHOICES
 from utils.django.db.models import Auditor
 
 
@@ -41,7 +42,7 @@ class Movie(Auditor):
         null=True,
         verbose_name=_(u'Year'),
     )
-    stars = models.PositiveIntegerField(
+    stars = models.FloatField(
         default=0,
         verbose_name=_(u'stars'),
     )
@@ -62,3 +63,25 @@ class Movie(Auditor):
 
     def __str__(self):
         return self.name
+
+
+class Rating(Auditor):
+    """ Model for Rating
+    """
+
+    rate = models.PositiveIntegerField(
+        choices=RATING_CHOICES,
+        verbose_name=_(u'rate'),
+    )
+    movie = models.ForeignKey(
+        'catalog.Movie',
+        null=True,
+        on_delete=models.PROTECT,
+        verbose_name=_(u'movie'),
+    )
+
+    def __str__(self):
+        return u'{0}-{1}'.format(
+            self.movie.name,
+            self.rate,
+        )

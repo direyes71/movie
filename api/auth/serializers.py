@@ -15,7 +15,7 @@ class NewUserSerializer(serializers.ModelSerializer):
             'username',
             'password',
             'age',
-            'sex',
+            'gender',
         )
 
     def create(self, validated_data):

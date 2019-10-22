@@ -16,12 +16,13 @@ class TestLoginCase(APITestCase):
     sign_up = '/auth/sign-up/'
 
     movie_url = '/catalog/movie/'
+    recommended_movie_url = '/catalog/best-movie/'
 
     username = 'test-user'
     password = 'movie-test'
 
     def setUp(self):
-        self.user = User.objects.create_user(self.username, password=self.password, age=24, sex=1)
+        self.user = User.objects.create_user(self.username, password=self.password, age=24, gender=1)
         self.client = APIClient()
 
     def test_login(self):
@@ -53,7 +54,7 @@ class TestLoginCase(APITestCase):
             password=self.password,
         )
         self.client.post(self.logout_url)
-        response = self.client.get(self.movie_url)
+        response = self.client.get(self.recommended_movie_url)
         self.assertEquals(response.status_code, 401)
 
     def test_create_user(self):

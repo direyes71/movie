@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
 
-from userprofile.choices import SEX_CHOICES
+from userprofile.choices import GENDER_CHOICES
 
 
 class Profile(AbstractUser):
@@ -13,8 +13,8 @@ class Profile(AbstractUser):
         null=True,
         verbose_name=_(u'age'),
     )
-    sex = models.PositiveIntegerField(
+    gender = models.PositiveIntegerField(
         null=True,
-        choices=SEX_CHOICES,
+        choices=GENDER_CHOICES,
         verbose_name=_(u'sex'),
     )
