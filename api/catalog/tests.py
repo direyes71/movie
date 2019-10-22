@@ -1,6 +1,6 @@
 import json
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from rest_framework.test import APIClient
@@ -9,12 +9,15 @@ from rest_framework import status
 from catalog.models import Movie
 
 
+User = get_user_model()
+
+
 class ServicesTestCase(TestCase):
     username = 'test-user'
     password = 'movie-test'
 
     def setUp(self):
-        self.user = User.objects.create_user(self.username, password=self.password)
+        self.user = User.objects.create_user(self.username, password=self.password, age=24, gender=1)
 
         self.client = APIClient()
 
@@ -113,9 +116,10 @@ class ServicesTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = json.loads(response.content)
+        movies = data['results']
 
         # Validate data
-        self.assertEqual(len(data), Movie.objects.count())
+        self.assertEqual(len(movies), Movie.objects.count())
 
     def test_update_movie(self):
         original_movie = self._create_movie()
@@ -175,9 +179,10 @@ class ServicesTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = json.loads(response.content)
+        movies = data['results']
 
         # Validate data
-        self.assertEqual(len(data), 1)
+        self.assertEqual(len(movies), 1)
 
     def test_retrieve_movie_list_recommended(self):
         _movie = self._create_movie()
@@ -190,6 +195,7 @@ class ServicesTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = json.loads(response.content)
+        movies = data['results']
 
         # Validate data
-        self.assertEqual(len(data), 1)
+        self.assertEqual(len(movies), 1)
