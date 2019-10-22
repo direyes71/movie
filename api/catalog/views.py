@@ -11,6 +11,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from api.catalog.serializers import NewMovieSerializer
 from catalog.models import Movie
+from catalog.models import Rating
 
 
 class MovieViewSet(
@@ -64,6 +65,12 @@ class MovieViewSet(
 
         return queryset.filter(**query)
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        Rating.objects.filter(
+            movie=instance,
+        ).delete()
+        return super(MovieViewSet, self).destroy(request, *args, **kwargs)
 
 class BestMovieViewSet(
         ListModelMixin,

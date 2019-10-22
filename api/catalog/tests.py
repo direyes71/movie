@@ -7,6 +7,7 @@ from rest_framework.test import APIClient
 from rest_framework import status
 
 from catalog.models import Movie
+from catalog.models import Rating
 
 
 User = get_user_model()
@@ -45,7 +46,15 @@ class ServicesTestCase(TestCase):
             '/catalog/movie/',
             data,
         )
-        return Movie.objects.last()
+        movie = Movie.objects.last()
+
+        Rating.objects.create(
+            rate=4.0,
+            created_by=self.user,
+            movie=movie,
+        )
+
+        return movie
 
     def test_create_movie(self):
         initial_movies = Movie.objects.count()
@@ -199,3 +208,35 @@ class ServicesTestCase(TestCase):
 
         # Validate data
         self.assertEqual(len(movies), 1)
+
+    def test_age_range_retrieve_movie_list_recommended_by_specific_user(self):
+        from api.catalog.views import get_recommended_movies
+        _movie = self._create_movie()
+        get_recommended_movies(Movie.objects.all(), 1, 24)
+
+    def test_retrieve_movie_list_recommended_by_specific_user(self):
+        _movie = self._create_movie()
+        url = '/catalog/best-movie/'
+        response = self.client.get(
+            url,
+        )
+
+        # Validate status of request
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        data = json.loads(response.content)
+        movies = data['results']
+
+        # Validate data
+        self.assertEqual(len(movies), 1)
+
+    def test_rating_str(self):
+        _movie = self._create_movie()
+        rating = Rating.objects.get()
+        self.assertEqual(
+            rating.__str__(),
+            u'{0}-{1}'.format(
+                rating.movie.name,
+                rating.rate,
+            ),
+        )
